@@ -10,3 +10,10 @@ COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
 # Ustawienia katalogu roboczego
 WORKDIR /var/www/html
+
+# Instalacja zależności Laravel
+COPY ./app /var/www/html
+RUN composer install
+
+# Uruchomienie migracji i seedów
+CMD ["sh", "-c", "sleep 10 && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8087"]
