@@ -1,0 +1,10 @@
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=laravel
+DB_PASSWORD=password
+
+czyli w pliku .env w folderze app
+
+później docker compose up --build i działa wszystko amen
