@@ -9,7 +9,7 @@ services:
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
-      - ./app:/var/www/html
+      - ./app:/var/www/html:cached # Poprawiona synchronizacja wolumenów
     ports:
       - "8087:8087"
     depends_on:

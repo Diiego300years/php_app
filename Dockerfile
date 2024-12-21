@@ -11,9 +11,11 @@ COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 # Ustawienia katalogu roboczego
 WORKDIR /var/www/html
 
-# Instalacja zależności Laravel
+# Kopiowanie plików aplikacji
 COPY ./app /var/www/html
-RUN composer install
 
-# Uruchomienie migracji i seedów
-CMD ["sh", "-c", "sleep 10 && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8087"]
+# Instalacja zależności Laravel (bez opcji --no-dev, aby zainstalować wszystkie zależności)
+RUN composer install --optimize-autoloader
+
+# Uruchomienie migracji i seedów (po odczekaniu na start bazy danych)
+CMD ["sh", "-c", "composer install --optimize-autoloader && sleep 10 && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8087"]
